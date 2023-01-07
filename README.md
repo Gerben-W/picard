@@ -16,19 +16,15 @@ services:
   calibre:
     image: capino/musicbrainz-picard:latest
     container_name: picard
-    security_opt:
-      - seccomp:unconfined #optional
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Berlin
-      - PASSWORD= #optional
-      - CLI_ARGS= #optional
     volumes:
       - /path/to/data:/config
     ports:
-      - 8080:8080
-      - 8081:8081
+      - 5800:5800
+      - 5900:5900
     restart: unless-stopped
 ```
 
@@ -37,14 +33,11 @@ services:
 ```bash
 docker run -d \
   --name=picard \
-  --security-opt seccomp=unconfined `#optional` \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/Berlin \
-  -e PASSWORD= `#optional` \
-  -e CLI_ARGS= `#optional` \
-  -p 8080:8080 \
-  -p 8081:8081 \
+  -p 5800:5800 \
+  -p 5900:5900 \
   -v /path/to/data:/config \
   --restart unless-stopped \
   capino/musicbrainz-picard:latest
@@ -56,12 +49,9 @@ Container images are configured using parameters passed at runtime (such as thos
 
 | Parameter | Function |
 | :----: | --- |
-| `-p 8080` | Picard desktop gui. |
-| `-p 8081` | Picard webserver gui. |
+| `-p 5800` | Picard desktop gui. |
+| `-p 5900` | Picard webserver gui. |
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/Berlin` | Specify a timezone to use EG Europe/London. |
-| `-e PASSWORD=` | Optionally set a password for the gui. |
-| `-e CLI_ARGS=` | Optionally pass cli start arguments to calibre. |
 | `-v /config` | Where picard should store its database and library. |
-| `--security-opt seccomp=unconfined` | For Docker Engine only, many modern gui apps need this to function as syscalls are unkown to Docker. |
