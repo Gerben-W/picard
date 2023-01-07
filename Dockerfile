@@ -17,7 +17,5 @@ RUN apt autoclean
 # Copy the start script.
 COPY startapp.sh /startapp.sh
 
-RUN ls /
-
 # Set the name of the application.
 RUN set-cont-env APP_NAME "Picard"
