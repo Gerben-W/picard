@@ -11,7 +11,7 @@ Here are some example snippets to help you get started creating a container.
 
 ```yaml
 ---
-version: "2.1"
+version: "3"
 services:
   calibre:
     image: capino/musicbrainz-picard:latest
@@ -22,6 +22,7 @@ services:
       - TZ=Europe/Berlin
     volumes:
       - /path/to/data:/config
+      - /path/to/music:/music
     ports:
       - 5800:5800
       - 5900:5900
@@ -39,6 +40,7 @@ docker run -d \
   -p 5800:5800 \
   -p 5900:5900 \
   -v /path/to/data:/config \
+  -v /path/to/music:/music
   --restart unless-stopped \
   capino/musicbrainz-picard:latest
 ```
@@ -55,3 +57,4 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/Berlin` | Specify a timezone to use EG Europe/London. |
 | `-v /config` | Where picard should store its database and library. |
+| `-v /music` | Where you store your music. |
