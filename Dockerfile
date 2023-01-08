@@ -11,6 +11,10 @@ RUN add-apt-repository -y ppa:musicbrainz-developers/stable
 RUN apt update
 RUN apt install -y picard
 
+# Generate and install favicons.
+RUN APP_ICON_URL=https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/MusicBrainz_Picard_logo.svg/1806px-MusicBrainz_Picard_logo.svg.png && \
+    install_app_icon.sh "$APP_ICON_URL"
+
 # Cleanup
 RUN apt autoclean
 
