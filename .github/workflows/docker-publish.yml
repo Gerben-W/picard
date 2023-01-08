@@ -1,5 +1,8 @@
 name: Publish DockerHub image
 
+env:
+  DOCKER_IMAGE_NAME: capino/picard
+
 on:
   push:
     branches:
@@ -27,7 +30,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: capino/picard
+          images: ${{ env.DOCKER_IMAGE_NAME }}
           tags: |
             type=sha,prefix={{branch}}-
             type=raw,value=latest
@@ -44,5 +47,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: capino/picard
+          repository: ${{ env.DOCKER_IMAGE_NAME }}
           readme-filepath: README.md
